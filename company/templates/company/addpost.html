@@ -1,0 +1,528 @@
+
+<!-- <form action="{% url 'post_cell' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Title</label>
+    <input type="text" name="title">
+    <label>Content</label>
+    <input type="text" name="content">
+
+    <input id="default-btn" type="file" class="file-upload-input"  accept="image/*" name="uploadfromPC"/>
+    <input type="submit">
+</form> -->
+
+{% include 'header.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'cell/addpost.css' %}">
+
+  <body style="background: whitesmoke;">
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+        
+        .card{
+            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        #navigation-section{
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+        }
+        
+        body{
+            background: whitesmoke;
+        }
+        
+        form{
+            border: none;
+        }
+        
+        .navbar{
+            display: flex;
+            padding: 2% 5%;
+            justify-content: space-between;
+            /* background: linear-gradient(65deg, #93FFD8, #3FC5F0); */
+            background: #fff;
+            height: 90px;
+        }
+        
+        .combine-search-other{
+            display: flex;
+            justify-content: end;
+        }
+        
+        
+        .searchDiv{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            margin: 0 30px;
+            height: 45px;
+        }
+        
+        .otherDiv{
+            display: flex;
+            justify-content: space-evenly;
+            height: 45px;
+            align-items: center;
+        }
+        
+        .searchBox{
+            height: 0;
+            padding: 0;
+            border-radius: 40px;
+            outline: none;
+            border: none;
+            margin-right: 10px;
+            transition: all .2s linear;
+        }
+        
+        .searchBtn{
+            /* padding: 10px; */
+            border-radius: 50%;
+            color: black;
+        }
+        
+        
+        .disSearchBox{
+            height: 50%;
+            padding: 5px;
+        }
+        
+        
+        
+        .logoHolder h2 a{
+            text-decoration: none;
+            color: black;
+            font-size: 35px;
+        }
+        
+        .navbarLinks{
+            margin-left: 10px;
+            margin-right: 10px;
+            border-radius: 10px;
+            padding: 7px 15px;
+        }
+        
+        .navbarLinks button{
+            color: black;
+            background: none;
+            border: none;
+            outline: none;
+        }
+        
+        .navbarLinks a{
+            text-decoration: none;
+            color: black;
+        }
+        
+        .navbarLinks:hover, .navbarLinks.active{
+            background: whitesmoke;
+            transition: all 0.5s;
+        }
+        
+        #navbarBottomSection{
+            position: fixed;
+            bottom: 0;
+            width: 100vw;
+            display: none;
+            z-index: 1;
+            box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+            background: #fff;
+        }
+        
+        .bottomNavbar{
+            display: flex;
+            justify-content: space-between;
+            /* background: linear-gradient(65deg, #93FFD8, #3FC5F0);; */
+            background: #fff;
+            padding: 2% 5%;
+        }
+        
+        .modal-header{
+            border: none;
+        }
+        
+        .modal-footer{
+            padding-left: 0;
+            padding-right: 0;
+        }
+        
+        .modal-title-center{
+            display: flex;
+            justify-content: center;
+        }
+        
+        .modal-footer{
+            border: none;
+        }
+        
+        .postButtonsCenter{
+            display: flex;
+            justify-content: center;
+        }
+        
+        
+        .button{
+            padding: 3% 5%;
+            width: 150px;
+        }
+          .container{
+            /* height: 350px; */
+            width: 100%;
+            margin-top: 20px;
+            position: relative;
+            padding-left: 0;
+            padding-right: 0;
+            /* padding: 10px 20px; */
+            display: grid;
+            height: 100%;
+            place-items: center;
+            text-align: center;
+          }
+          .container .wrapper{
+            position: relative;
+            /* height: 300px; */
+            width: 100%;
+            border-radius: 10px;
+            background: #fff;
+            border: 2px dashed #c2cdda;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+          }
+          .wrapper.active{
+            border: none;
+          }
+          .wrapper .image{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+          }
+          .wrapper img{
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+          }
+          .wrapper .icon{
+            font-size: 100px;
+            color: #9658fe;
+          }
+          .wrapper .text{
+            font-size: 20px;
+            font-weight: 500;
+            color: #5B5B7B;
+            padding-bottom: 20px;
+          }
+          .wrapper #cancel-btn i{
+            position: absolute;
+            font-size: 20px;
+            right: 15px;
+            top: 15px;
+            color: #9658fe;
+            cursor: pointer;
+            display: none;
+          }
+          .wrapper.active:hover #cancel-btn i{
+            display: block;
+          }
+          .wrapper #cancel-btn i:hover{
+            color: #e74c3c;
+          }
+          .wrapper .file-name{
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            padding: 8px 0;
+            font-size: 18px;
+            color: #fff;
+            display: none;
+            background: linear-gradient(135deg,#3a8ffe 0%,#9658fe 100%);
+          }
+          .wrapper.active:hover .file-name{
+            display: block;
+          }
+          .custom-btn{
+            margin-top: 30px;
+            margin-left: 0;
+            margin-right: 0;
+            display: block;
+            width: 100%;
+            height: 50px;
+            border: none;
+            outline: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            background: #FF5959;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chooseImageBtnDiv{
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .image-upload>input{
+            display: none;
+        }
+        
+        .chooseImageBtn{
+            text-align: center;
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px 30px;
+            border: 2px solid gray;
+            border-radius: 40px;
+        }
+        
+        .click-btn{
+            padding: 15px 0;
+            width: 100%;
+            background: #FF5959;
+            border-radius: 40px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .fa-image{
+            padding-left: 7px;
+        }
+        
+        .fa-dove{
+            padding-left: 7px;
+        }
+        
+        .image-upload{
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 40px;
+        }
+        
+        .cweet-btn{
+            margin-top: 30px;
+            margin-left: 0;
+            margin-right: 0;
+            display: block;
+            width: 100%;
+            height: 50px;
+            border: none;
+            outline: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            background: #548CFF;
+        }
+        
+        @media only screen and (max-width: 991px)
+        {
+            .logoHolder h2 a{
+                font-size: 17px;
+            }
+        
+            .disSearchBox{
+                height: 30%;
+                padding: 5px;
+            }
+        
+            .otherDiv{
+                display: none;
+                height: 30px;
+            }
+        
+            #navbarBottomSection{
+                display: block;
+            }
+        
+            .searchDiv{
+                margin: 0;
+                height: 30px;
+            }
+        
+            .navbar{
+                padding: 1% 5%;
+                height: 60px;
+            }
+        
+            .bottomNavbar{
+                padding: 1% 5%;
+                /* height: 50px; */
+            }
+        
+        }
+        
+        @media only screen and (max-width: 844px){
+            .createPostButtons{
+                flex-direction: column;
+            }
+        }
+        
+        
+        </style>
+    
+    <!-- <div class="postFeed">
+      <div class="profile">
+        <div class="proimg">SB</div>
+        <div class="name">First Last</div>
+        <div class="cancel">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="red"
+            class="bi bi-x-circle-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="mainContent">
+        <form action="">
+          <div class="inputbox">
+            <input type="text" required="required" />
+            <span>Title</span>
+          </div>
+          <span>Comments</span>
+          <textarea
+            maxlength="3"
+            style="
+              max-height: 30%;
+
+              width: 90%;
+              max-width: 90%;
+            "
+            placeholder="What's on your mind today?"
+            id="mytextarea"
+          ></textarea>
+          <div class="uploads">
+            <span>Insert </span>
+            <input type="file" id="file" />
+            <div class="postit">
+              <button type="submit" class="btn">Post</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div> -->
+  <div class="mx-auto mt-4" style="height: 100vh; width: 70%;">
+    <div class="card pt-2 pb-4 px-4" style="margin-top: 120px;" >
+        <div class="card-body ">
+            <form action="{% url 'post_company' %}" method="post" enctype="multipart/form-data"> 
+                {% csrf_token %}
+                <div class="form-group mb-4">
+                  <input class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Enter Title" style="resize: none;" name="title">
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Enter Content" style="resize: none;" name="content"></textarea>
+                </div>
+                <div class="container">
+                  <div class="wrapper">
+                     <div class="image" id="img-uploaded-background">
+                        <img src="" alt="">
+                     </div>
+                     <div class="content">
+                        <div class="icon">
+                           <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="text" >
+                          <p>No Image chosen, yet!</p>
+                        </div>
+                     </div>
+                     <div id="cancel-btn">
+                        <i class="fas fa-times"></i>
+                     </div>
+                     <div class="file-name">
+                        Image name here
+                     </div>
+                  </div>
+                    <div class="image-upload">
+                      <label for="default-btn" class="custom-btn">
+                      Upload Image<i class="fas fa-image"></i>  
+                      </label>
+                    
+                      <input id="default-btn" type="file" class="file-upload-input" onclick="defaultBtnActive()" accept="image/*" name="uploadfromPC"/>
+                    </div>
+                    
+                  <!-- </div> -->
+                  <!-- <button onclick="" id="custom-btn">Choose an Image</button> -->
+                  
+               
+                <!-- <div class="modal-footer"> -->
+                  <button type="submit" class="cweet-btn">Add Post<i class="fas fa-dove"></i></button>
+                <!-- </div> -->
+                
+                
+                </div>
+              </form>
+        </div>
+    </div>
+</div>
+
+    <script>
+        const wrapper = document.querySelector(".wrapper");
+        const fileName = document.querySelector(".file-name");
+        const defaultBtn = document.querySelector("#default-btn");
+        const imgUploadedBackground = document.querySelector("#img-uploaded-background");
+        // const customBtn = document.querySelector("#custom-btn");
+        const cancelBtn = document.querySelector("#cancel-btn i");
+        const img = document.querySelector("img");
+        let regExp = /[0-9a-zA-Z\^\&\'\@\{\}\[\]\,\$\=\!\-\#\(\)\.\%\+\~\_ ]+$/;
+        function defaultBtnActive(){
+          defaultBtn.click();
+        }
+        defaultBtn.addEventListener("change", function(){
+          const file = this.files[0];
+          if(file){
+            const reader = new FileReader();
+            reader.onload = function(){
+              const result = reader.result;
+              img.src = result;
+              wrapper.classList.add("active");
+              imgUploadedBackground.style.background = "white";
+            }
+            cancelBtn.addEventListener("click", function(){
+              imgUploadedBackground.style.background = "none";
+              img.src = "";
+              wrapper.classList.remove("active");
+            })
+            reader.readAsDataURL(file);
+          }
+          if(this.value){
+            let valueStore = this.value.match(regExp);
+            fileName.textContent = valueStore;
+          }
+        });
+      </script>
+</body>
+
+
+
+
+
+{% include 'footer.html' %}

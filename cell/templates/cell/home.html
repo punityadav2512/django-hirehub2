@@ -1,0 +1,245 @@
+{% include 'header.html' %}
+
+{% load static %}
+ <link rel="stylesheet" href="{% static 'cell/home.css' %}">
+
+<!-- <p>welcome to cell home </p>
+<a href="{% url 'logout_cell' %}">logout</a>
+<a href="{% url 'post_cell' %}">Add post</a>
+<a href="{% url 'profile_cell' %}">Profile</a>  -->
+
+<!-- <div class="container">
+    {% for post in allposts %}
+    <h1>{{post.title}}</h1>
+    <h4>{{post.author.first_name}}</h4>
+    <h6>{{post.dated}}</h6>
+    <p>{{post.content}}</p>
+    {% endfor %}
+    
+</div> -->
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&display=swap");
+* {
+    width: max-content;
+    height: max-content;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    font-family: "Zen Kaku Gothic Antique", sans-serif;
+    color: #4d4d4f;
+    font-weight: 600;
+    transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+    position: relative;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 25px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+main {
+    min-height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: auto;
+    /* grid-gap: 2rem; */
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+}
+
+.cell-card, .company-card {
+    width: 720px;
+    /* min-height: 400px; */
+    background: #fff;
+    box-shadow: 15px 15px 60px rgba(0,0,0,0.15);
+    padding: 20px;
+    position: relative;
+    margin: 1rem 0;
+}
+
+.cell-card .top, .company-card .top {
+    position: relative;
+    width: 100%;
+}
+
+.cell-card .top .userDetails, .company-card .top .userDetails {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.cell-card .top .userDetails .profileImg, .company-card .top .userDetails .profileImg {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 8px;
+}
+
+.cell-card .top .userDetails .profileImg img, .cell-card .top .postImg img, .company-card .top .userDetails .profileImg img, .company-card .top .postImg img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.cell-card .top .userDetails h3, .company-card .top .userDetails h3{
+    font-size: 16px;
+    color: #4d4d4f;
+    line-height: 1eem;
+}
+
+.cell-card .top .userDetails h3 span, .company-card .top .userDetails h3 span {
+    font-size: 0.75rem;
+}
+
+.cell-card .top .postImg, .company-card .top .postImg {
+    position: relative;
+    width: 100%;
+    height: 320px;
+}
+
+.cell-card .views, .company-card .views{
+    font-size: small;
+    line-height: 1.5em;
+}
+
+.cell-card .message, .company-card .message {
+    max-width: 100%;
+    font-weight: 400;
+    font-size: smaller;
+    color: #777;
+    line-height: 1.5em;
+}
+
+.cell-card .deadline, .company-card .deadline, .cell-card .vacancy, .company-card .vacancy {
+    max-width: 100%;
+    font-weight: 400;
+    font-size: smaller;
+    color: #777;
+    line-height: 1.5em;
+    margin: 12px 0;
+}
+
+.cell-card .deadline::before, .company-card .deadline::before {
+    content: "Last Date : ";
+    font-weight: 600;
+    color: #000;
+}
+
+.cell-card .vacancy::before, .company-card .vacancy::before {
+    content: "Vacancy Available";
+    font-weight: 600;
+    color: #000;
+}
+
+.cell-card .hashtags, .company-card .hashtags {
+    font-size: smaller;
+    line-height: 3em;
+}
+
+.cell-card .hashtags span, .company-card .hashtags span {
+    background: skyblue;
+    border-radius: 30px;
+    padding: 5px 7px;
+    margin-right: 6px;
+    line-height: 2em;
+    border: 1px solid skyblue;
+    cursor: pointer;
+}
+
+hr{
+    display: block;
+    background-color: #000;
+    height: 50px;
+    width: 100%;
+}
+
+
+</style>
+<main>
+    {% for post in allposts %}
+    <div class="cell-card">
+        
+        <div class="top">
+            {% for user in profile %}
+            <div class="userDetails">
+                <div class="profileImg">
+                    {% if user.image %}
+                    <img src="{{user.image.url}}" alt="">
+                    {% endif %}
+                </div><!-- /.profileImg -->
+                <h3>
+                    {{user.user.first_name}}<br> 
+                    <span>{{user.location}},{{post.dated}}</span>
+                    <!-- {{post.dated}} -->
+                </h3>
+            </div>
+            {% endfor %}
+            <!-- /.userDetails -->
+            
+            <div class="postImg my-4">
+                {% if post.image %}
+                <img src="{{post.image.url}}" alt="">
+                {% endif %}
+            </div><!-- /.postImg -->
+            <!-- <div class="actionBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                </svg>
+            </div> -->
+        </div><!-- /.top -->
+        <!-- <h4 class="views">6,786 views</h4> -->
+        <hr>
+        <h4 class="message">
+            <b>{{post.author.first_name}}</b><br>
+            {{post.content}}
+        </h4>
+        <!-- <div class="hashtags">
+            <span>
+                #thanks
+            </span>
+            <span>
+                #hashtags
+            </span>
+            <span>
+                #tags
+            </span>
+            <span>
+                #test
+            </span>
+        </div> -->
+        
+        <!-- /.hashtags -->
+        <!-- <h4 class="deadline">
+            13 Feb, 2022
+        </h4>
+        <h4 class="vacancy">
+            13 Feb, 2022
+        </h4> -->
+    </div><!-- /.card -->
+    {% endfor %}
+</main>
+
+{% include 'footer.html' %}
+

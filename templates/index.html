@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <title>Document</title>
+  </head>
+  <body> 
+
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+}
+body{
+    /* background: linear-gradient(#364b75, #346ddf, #455a83); */
+    background: white;
+    font-family: 'Nunito', sans-serif;
+    color: #000;
+}
+
+.hirehub-banner{
+    background-image: url('../static/images/bg-2.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    /* border-radius: 20px; */
+}
+
+.hirehub-logo{
+    padding-top: 15px;
+    height: 20%;
+}
+
+.tag-line{
+    font-size: 52px;
+    line-height: 2;
+}
+
+.right-bottom h3{
+    font-size: 40px;
+}
+
+.right-top{
+    height: 28vh;
+    padding-left: 20px;
+}
+
+.right-bottom{
+    padding-left: 30px;
+}
+
+.btn-mod{
+    display: block;
+    border-radius: 20px;
+    margin-top: 35px;
+}
+
+.hirehub-log{
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.btn-div{
+    padding-top: 20px;
+}
+
+
+@media screen and (max-width: 991px)
+{
+    .disp{
+        display: flex;
+        justify-content: center;
+    }
+    .tag-line{
+        text-align: center;
+    }
+    .btn-mod{
+        margin-left: 50px;
+    }
+
+    .hirehub-logo{
+        height: 40%;
+    }
+
+    .right-top{
+        height: 40vh;
+        padding-left: 20px;
+    }
+}
+
+.rights{
+    padding: 3% 12%;
+    text-align: center;
+    background-color: #04293A;
+
+}
+    </style>
+     <!-- <ul>
+        <li><a href="{% url 'index_company' %}">company</a></li>
+        <li><a href="{% url 'index_cell' %}">cell</a></li>
+    </ul> -->
+
+    <div class="row">
+      <div class="col-lg-7 hirehub-banner"></div>
+      <div class="col-lg-5 hirehub-log">
+          <div class="row">
+              <div class="row right-top">
+                  <!-- <div class="cl-lg-3 disp">
+                      <img src="../static/images/bg-1.png" alt="" class="hirehub-logo">
+                  </div> -->
+                  <div class="col-lg-9"></div>
+              </div>
+              <div class="row right-bottom">
+                  <div>
+                      <h1 class="tag-line">Connecting World</h1>
+                      <h3 class="tag-line">Join HireHub Now !</h3>
+                  </div>
+                  <div class="row btn-div">
+                      <div class="col-lg-3"></div>
+                      <div class="co-lg-6">
+                          <a href="{% url 'index_company' %}" class="btn btn-outline-dark btn-mod">Company</a>
+                          <a href="{% url 'index_cell' %}" class="btn btn-dark btn-mod">Cell</a>
+                      </div>
+                      <div class="col-lg-3"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <section id="footer">
+          <div class="rights text-muted">
+               <p>&copy; Naman Goyal</p>
+          </div>
+      </section>
+
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>

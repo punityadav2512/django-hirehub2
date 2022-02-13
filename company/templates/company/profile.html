@@ -1,0 +1,672 @@
+{% include 'header.html' %}
+
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="..." class="rounded float-start" alt="...">
+
+        </div>
+        <div class="col-sm-6">
+            
+        </div>
+    </div>
+    <hr>
+    <br>
+    <br>
+    <br>
+    <h3>Posts</h3>
+    <div class="">
+        {% for post in companyposts %}
+        <h1>{{post.title}}</h1>
+        <p>{{post.content}}</p>
+        {% endfor %}
+    </div>
+</div> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <script src="https://kit.fontawesome.com/adaa5eca50.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    {% load static %}
+<link rel="stylesheet" href="{% static 'company/profile.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <style>
+        *,
+*::before,
+*::after {
+    box-sizing:border-box;
+}
+
+html {
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+
+html, body, div, span, applet, object, iframe, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+
+
+.header-top {
+    background-color: whitesmoke;
+    
+}
+
+.header-container {
+    margin: 0 auto;
+    max-width: 940px;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.cover {
+    position: relative;
+   
+}
+
+.cover-img {
+    display: block;
+    width: 100%;
+    opacity: 0.6;
+    object-fit: cover;
+    object-position: center;
+}
+
+.edit-cover-btn {
+    color:rgb(44, 42, 42);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: rgba(255,255,255,0.8);
+    font-weight: 700;
+    position: absolute;
+    right: 35px;
+    bottom: 22px;
+    z-index: 1;
+}
+
+.profile {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left:0;
+    right:0;
+    bottom: 0;
+    width: 170px;
+    z-index: 2;
+    
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    border:5px solid #363636;
+}
+
+
+.camera {
+    background-color: rgba(65, 63, 63, 0.2);
+    padding: 7px 10px;
+    border-radius: 50%;
+    position:absolute;
+    bottom: 10px;
+    right: 10px;
+    color: rgb(228, 228, 228);
+    font-size: 1.4em;
+    cursor: pointer;
+}
+
+.camera:hover, .edit-cover-btn:hover {
+    transition: background-color 0.1s ease;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.empty {
+    position: relative;
+    height: 15px;
+    background-color: whitesmoke;
+}
+
+.header-bottom {
+    background-color: whitesmoke;
+}
+
+
+.content-container {
+   
+    /* width: 100%; */
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+main .content-container {
+    display: flex;
+  
+}
+
+@media screen and (max-width: 906px){
+    main .content-container {
+        display: block;
+    }
+  
+    
+}
+
+.description {
+    max-width: 290px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.description h1 {
+    color: black;
+    margin: 0;
+    padding-top: .3rem;
+}
+
+.description h4 {
+    color: black;
+    font-weight: 400;
+    margin: 5px;
+    padding-bottom: 12px;
+}
+
+.description a {
+    display: block;
+    text-decoration: none;
+    font-weight: 700;
+    color: #008fd1;
+    margin: 0;
+    padding-bottom: .9rem;
+}
+
+.header-nav {
+    display: flex;
+    list-style-type: none;
+}
+
+.header-nav li {
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.header-nav a {
+    border-radius: 7px;
+    display: inline-block;
+    padding: 17px 15px 12px;
+    color: rgb(31, 30, 30);
+    text-decoration: none;
+}
+
+.header-nav a:hover, .posts-bottom span a:hover {
+    transform: scaleX(1.1);
+    transition: transform 0.1s linear;
+}
+
+.header-nav a:active, .posts-bottom span a:active {
+    background-color: whitesmoke;
+    color: #008fd1;
+    border-bottom: 4px solid #008fd1;
+    border-radius: 0;
+}
+
+#active {
+    background-color: whitesmoke;
+    color: #008fd1;
+    border-bottom: 4px solid #008fd1;
+    border-radius: 0;
+}
+
+.header-bar {
+    display:flex;
+    justify-content: space-between;
+}
+
+
+
+
+@media screen and (max-width: 860px){
+    #archive {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 774px){
+    #photos {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 692px){
+    #friends {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 582px){
+    #about {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 504px){
+    #active {
+        display: none;
+    }
+}
+
+
+
+main {
+    background-color: #dfdfdf;
+    padding: 14px;
+}
+aside {
+    width: 42%;
+    margin-right: 14px;
+    
+}
+
+@media screen and (max-width: 906px){
+    aside {
+        width: 100%;
+        display: block;
+    }
+}
+.intro {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    width: 100%;
+    padding: 12px 15px 8px;
+    color: rgb(44, 43, 43);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    
+}
+
+.intro h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.intro p {
+    margin: 1.2em 0;
+}
+
+.intro a {
+    color: #008fd1;
+    text-decoration: none;
+}
+
+.intro div {
+    width: 100%;
+    background-color: #dfdfdf;
+    border-radius: 7px;
+    text-align: center;
+    font-weight: 700;
+    padding: 8px;
+    margin: 10px 0 14px 0;
+    cursor: pointer;
+}
+
+.intro div:hover {
+    transition: background-color 0.1s ease;
+    background-color: #595959;
+    color: white;
+}
+
+.photos {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding: 12px 15px 8px;
+    margin: 14px 0;
+    color: rgb(48, 47, 47);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.photos-head {
+    padding-bottom: 10px;
+}
+
+.photos .h3 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.see-all {
+    float: right;
+    font-size: 1.2em;
+    padding: 5px;
+    color: #008fd1;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.grid {
+    display: grid;
+    grid-template: repeat(3, auto) / repeat(3,1fr);  
+    grid-gap: 5px;
+    width: 100%;
+    border-radius: 10px;
+    margin: 10px 0 14px 0;
+    overflow: hidden;
+}
+
+.grid-img {
+    width: 100%;
+    grid-column: span 1;
+}
+
+.see-all:hover {
+    transform: scale(1.08);
+    transition: transform 0.1s ease;
+}
+
+
+
+section {
+    width: 58%;
+}
+
+@media screen and (max-width: 906px){
+    section {
+        display: block;
+        width: 100%;
+    }
+}
+
+
+
+ .timeline {
+    margin-bottom: 1rem;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+ }
+
+ .timeline span {
+    color: rgb(36, 35, 35);
+ }
+
+ .timeline-head {
+    padding: 12px 15px;
+ }
+ .timeline-head span:first-child img {
+    width: 2.5rem;
+    height: auto;
+    border-radius: 50%;
+    vertical-align: middle;
+ }
+
+ .timeline-head span:nth-child(2) {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+ }
+
+ .timeline-head p {
+     margin: 0;
+ }
+
+ .timeline-head span:nth-child(3) {
+     float: right;
+     vertical-align: middle;
+     padding: 10px;
+     border-radius: 50%;
+     cursor: pointer;
+ }
+
+ .timeline-head span:nth-child(3):hover {
+    transition: background-color 0.1s ease;
+    background-color: white;
+ }
+
+ .timeline-head span:nth-child(2) p:first-child a {
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+ }
+
+ .timeline-head span:nth-child(2) p:last-child a {
+    color: black;
+    text-decoration: none;
+ }
+
+ .timeline-head a:hover {
+     text-decoration: underline;
+ }
+
+ .timeline-head span:nth-child(2) p:first-child {
+     font-size: 0.95em;
+     margin-bottom: 5px;
+ }
+
+ .timeline-head span:nth-child(2) p:last-child {
+     font-size: 0.85em;
+ }
+
+ .timeline-picture {
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 120%;
+    background-position: top;
+   
+    max-width: 50rem;
+    max-height: 50rem;
+    
+    margin: 0 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid grey;
+    text-align: center;
+  
+ }
+
+ .timeline-picture img {
+     margin: 1.25rem auto;
+     border-radius: 50%;
+     border: 5px solid #363636;
+    
+     width: 100%;
+     height: 100%;
+     
+}
+
+.timeline-options {
+    padding: 1rem 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    
+}
+    </style>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'profile_company' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">About:</label>
+                  <input type="text" class="form-control" id="recipient-name" name="bio">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Address:</label>
+                  <input  type="text" class="form-control" id="message-text" name="location">
+                </div>
+                <div class="mb-3">
+                  <label for="message-url" class="col-form-label">Url:</label>
+                  <input type="url" class="form-control" id="message-url" name="url">
+                </div>
+                <div class="image-upload">
+                    <label for="default-btn" class="custom-btn">
+                    Upload Image<i class="fas fa-image"></i>  
+                    </label>
+                  
+                    <input id="default-btn" type="file" class="file-upload-input" onclick="defaultBtnActive()" accept="image/*" name="uploadfromPC"/>
+                  </div>
+              
+              
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+    <header>
+        <div class="header-top">
+            <div class="header-container cover">
+                <img class="cover-img"
+                    src="https://www.downingstudents.com/wp-content/uploads/2017/04/Tech-Study-banner.jpg"
+                    alt="Default cover image">
+
+            </div>
+        </div>
+        <div class="empty">
+            <div class="profile">
+                {% for profile in companyposts %}
+                <img class="profile-pic rounded-circle" src="{{profile.image.url}}"
+                    alt="Default profile image">
+                   {% endfor %} 
+                <div class="camera"><i class="fas fa-camera"></i></div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="content-container">
+                <div class="description">
+                    <h1>Profile Page</h1>
+                    <h4>Customize your profile</h4>
+                    <a href="#"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-pen"></i>&nbsp;Edit
+                            Profile</button></a>
+
+                </div>
+
+                <div class="header-bar">
+                    <!-- <ul class="header-nav">
+                        <li><a href="#" id="active">Timeline</a></li>
+
+                    </ul> -->
+
+                </div>
+
+
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="content-container">
+            <!-- <aside> -->
+                <div class="intro ">
+                    <h3>About</h3>
+                    {% for post in companyposts %}
+                    <p><i class="fas fa-graduation-cap"></i>{{post.bio}}</p>
+                    <p><i class="fas fa-house-user"></i>{{post.location}}</p>
+                    <p><i class="fas fa-clock"></i>{{post.dated}}</p>
+                    <p><i class="fas fa-globe"></i>{{post.url}}</p>
+                    <!-- <div>Edit Details</div>
+                    <div>Edit Featured</div> -->
+                    {% endfor %}
+                </div>
+                <!-- <div class="photos">
+                    <div class="photos-head">
+                        <span class="h3">Photos</span>
+                        <span class="see-all">See All</span>
+                    </div>
+                    <div class="grid">
+                        <img class="grid-img" src="../../static/company/images/bg-4.webp" alt="Default profile image">
+                        <img class="grid-img" src="../../static/company/images/bg-4.webp" alt="Default profile image">
+                        <img class="grid-img" src="../../static/company/images/bg-4.webp" alt="Default profile image">
+                        <img class="grid-img" src="../../static/company/images/bg-4.webp" alt="Default profile image">
+                        {% comment %} <img class="grid-img" src="../../static/company/images/bg-4.webp" alt="Default profile image">
+                        <img class="grid-img" src="../../static/company/images/bg-4.webp" alt="Default profile image">
+                        <img class="grid-img" src="../../static/company/images/bg-4.webp" alt="Default profile image">
+                        <img class="grid-img" src="../../static/company/images/bg-4.webp" alt="Default profile image">
+                        <img class="grid-img" src="../../static/company/images/bg-4.webp" alt="Default profile image"> {% endcomment %}
+                    </div>
+                </div> -->
+
+            <!-- </aside> -->
+            <!-- <section>
+
+
+                <div class="timeline">
+                    <div class="timeline-head">
+                        <span><img src="../../static/company/images/bg-4.webp" alt="Default profile image"></span>
+                        <span>
+                            <p><a href="#">Punit</a> updated his profile picture.</p>
+                            <p><a href="#">February 13 at 12:00 PM</a> &bull; <i class="fas fa-globe-africa"></i></p>
+                        </span>
+                        <span>
+                            <i class="fas fa-ellipsis-h"></i>
+                        </span>
+                    </div>
+                    <div class="timeline-picture">
+                        <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Default profile image">
+                    </div>
+                    <div class="timeline-options">
+                        <span class="live-icons"><i class="far fa-thumbs-up"></i>&nbsp; Like</span>
+                        <span class="live-icons"><i class="far fa-comment-alt"></i></i>&nbsp; Comment</span>
+                        <span class="live-icons"><i class="far fa-share-square"></i>&nbsp; Share</span>
+                    </div>
+
+
+                </div>
+                <div class="timeline">
+                    <div class="timeline-head">
+                        <span><img src="../../static/cell/images/bg-4.webp" alt="Default profile image"></span>
+                        <span>
+                            <p><a href="#">Punit</a> updated his profile picture.</p>
+                            <p><a href="#">February 13 at 12:00 PM</a> &bull; <i class="fas fa-globe-africa"></i></p>
+                        </span>
+                        <span>
+                            <i class="fas fa-ellipsis-h"></i>
+                        </span>
+                    </div>
+                    <div class="timeline-picture">
+                        <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Default profile image">
+                    </div>
+                    <div class="timeline-options">
+                        <span class="live-icons"><i class="far fa-thumbs-up"></i>&nbsp; Like</span>
+                        <span class="live-icons"><i class="far fa-comment-alt"></i></i>&nbsp; Comment</span>
+                        <span class="live-icons"><i class="far fa-share-square"></i>&nbsp; Share</span>
+                    </div>
+
+                </div>
+            </section> -->
+        </div>
+    </main>
+
+
+    
+</body>
+
+</html>

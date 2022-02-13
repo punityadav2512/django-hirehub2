@@ -1,0 +1,24 @@
+{% include 'header.html' %}
+
+<div class="container">
+    {% if allposts|length < 1 %}
+    <p>No Search Results !</p>
+    <p>Your search query - <b>{{query}}</b> didn't match any user</p>
+    <p>Suggestions:</p>
+    <p>Try Again !</p>
+    {% endif %}
+</div>
+<div class="container " style="min-height: 100vh;padding-top: 100px;width: 70%; overflow: hidden;">
+    {% for user in allposts %}
+
+    <div class="card mb-3" style="min-height: 20vh; margin-top: 2rem;-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);">
+        <div class="card-title "><h2 class="ps-3 mt-2">{{user.first_name}}</h2><hr></div>
+        <div class="card-body">
+            <h5>Contact details :</h5>
+            <p>{{user.email}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% include 'footer.html' %}
