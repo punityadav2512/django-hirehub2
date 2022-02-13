@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'hirehub2'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_09BC0C2577DB4A348DADB8BC8397FD22 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_899F3978B05C4160A2F1F1E62A96845B }}
